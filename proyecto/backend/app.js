@@ -38,12 +38,20 @@ app.get('/api/clientes', (request, response) => {
     });
 })
 
-
-
-
+//Seleccionar un Cliente por ID:
+app.get('/api/clientes/:id', (request, response) => {
+    const id = request.params.id;
+    const queryData = "SELECT * FROM clientes WHERE id = ?";
+    connection.query(queryData, [id], (error, fila) => {
+        if (error) {
+            throw error;
+        } else {
+            response.send(fila);
+        }
+    });
+})
 
 //Encender Servidor
-
 let puerto = 3000;
 app.listen(puerto, () => {
     console.log('Servidor corriendo en puerto ' + puerto);
