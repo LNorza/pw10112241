@@ -51,6 +51,37 @@ app.get('/api/clientes/:id', (request, response) => {
     });
 })
 
+//Borrar Clientes
+app.delete('/api/clientes', (req, res) => {
+    const id = req.params.id;
+    const queryData = 'DELETE FROM clientes WHERE id = ?';
+    connection.query(queryData, [id], (error, fila) => {
+        if (error) {
+            throw error;
+        } else {
+            res.send(fila);
+        }
+    })
+})
+
+//Insertar un nuevo cliente
+api.post(('/api/clientes/:id', (req, res) => {
+    let data = {
+        id: req.body.id,
+        Name: req.body.name,
+        Last_name: req.body.lastname,
+        telephone: req.body.telephone
+    }
+    const queryData = 'INSERT INTO clientes SET ?';
+    connection.query(queryData, data, (error, fila) => {
+        if (error) {
+            throw error;
+        } else {
+            res.send(fila);
+        }
+    })
+}))
+
 //Encender Servidor
 let puerto = 3000;
 app.listen(puerto, () => {
