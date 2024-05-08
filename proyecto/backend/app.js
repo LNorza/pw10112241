@@ -65,22 +65,41 @@ app.delete('/api/clientes', (req, res) => {
 })
 
 //Insertar un nuevo cliente
-api.post(('/api/clientes/:id', (req, res) => {
+app.post('/api/clientes', (req, res) => {
     let data = {
         id: req.body.id,
-        Name: req.body.name,
-        Last_name: req.body.lastname,
-        telephone: req.body.telephone
+        name: req.body.Name,
+        last_name: req.body.Last_name,
+        telephone: req.body.telephone,
     }
-    const queryData = 'INSERT INTO clientes SET ?';
-    connection.query(queryData, data, (error, fila) => {
+    let sql = 'INSERT INTO clientes SET ?';
+    connection.query(sql, data, (error, fila) => {
         if (error) {
             throw error;
         } else {
             res.send(fila);
         }
     })
-}))
+})
+
+//Actualizar un cliente:
+app.put('/api/clientes/:id', (req, res) => {
+    const id = req.params.id;
+    let data = {
+        id: req.body.id,
+        name: req.body.Name,
+        last_name: req.body.Last_name,
+        telephone: req.body.telephone,
+    }
+    let sql = 'UPDATE clientes SET ? WHERE id = ?';
+    connection.query(sql, [data, id], (error, fila) => {
+        if (error) {
+            throw error;
+        } else {
+            res.send(fila);
+        }
+    })
+})
 
 //Encender Servidor
 let puerto = 3000;
