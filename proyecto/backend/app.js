@@ -52,17 +52,19 @@ app.get('/api/clientes/:id', (request, response) => {
 })
 
 //Borrar Clientes
-app.delete('/api/clientes', (req, res) => {
+app.delete('/api/clientes/:id', (req, res) => {
     const id = req.params.id;
-    const queryData = 'DELETE FROM clientes WHERE id = ?';
-    connection.query(queryData, [id], (error, fila) => {
-        if (error) {
-            throw error;
-        } else {
-            res.send(fila);
+    // Supongamos que estás usando una base de datos SQL
+    const query = 'DELETE FROM clientes WHERE id = ?';
+
+    connection.query(query, [id], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: err });
         }
-    })
-})
+        return res.json({ affectedRows: result.affectedRows });
+    });
+});
+
 
 //Insertar un nuevo cliente
 app.post('/api/clientes', (req, res) => {
