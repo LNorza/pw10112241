@@ -81,6 +81,7 @@ export default {
         onTodoBien() {
             alert('Todo validado');
         },
+
         guardarCliente() {
             axios.post('http://localhost:3000/api/clientes', this.model.cliente)
                 .then(res => {
