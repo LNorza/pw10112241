@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <h4>Customers
-                    <RouterLink to="/clients/new" class="btn btn-primary float-end">
+                    <RouterLink to="/Customers/create" class="btn btn-primary float-end">
                         Add
                     </RouterLink>
                 </h4>
@@ -20,18 +20,28 @@
                         <th>Actions</th>
                     </thead>
 
-                    <tbody>
+                    <tbody v-if='clientes.length > 0'>
                         <tr v-for="(cliente, index) in clientes" :key="index">
                             <td>{{ cliente.id }}</td>
                             <td>{{ cliente.Name }}</td>
                             <td>{{ cliente.Last_name }}</td>
                             <td>{{ cliente.telephone }}</td>
-                            <td> Update &nbsp; Delete</td>
+                            <td>
+                                Update &nbsp;
+                                <button class="btn btn-danger" @click="deleteCustomer(cliente.id)">
+                                    Delete
+
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
-
-
-
+                    <tbody v-else>
+                        <tr>
+                            <td colspan="9" style="text-align: center;">
+                                Sin Clientes :(
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -48,7 +58,6 @@ export default {
     data() {
         return {
             clientes: [],
-
         }
     },
 
@@ -65,11 +74,26 @@ export default {
         getClientes() {
             axios.get('http://localhost:3000/api/clientes').then(
                 response => {
-                    // console.log(response);
                     this.clientes = response.data;
                 }
             )
+        },
+
+        deleteCustomer(idCustomer) {
+            axios.delete('http://localhost:3000/api/clientes/' + idCustomer)
+                .then(res => {
+                    console.log(res);  // Registro de la respuesta completa
+                    if (res.data.affectedRows > 0) {
+                        this.getClientes();
+                    } else {
+                        console.error('No rows affected');
+                    }
+                })
+                .catch(err => {
+                    console.error('Error deleting customer:', err);
+                });
         }
+
     },
 }
 </script>
