@@ -17,7 +17,7 @@ import { RouterLink } from 'vue-router'
                     <li class="nav-item">
                         <RouterLink class="navbar-brand" to="/Customers">Customers</RouterLink>
                         <RouterLink class="navbar-brand" to="/suppliers">Suppliers</RouterLink>
-                        <RouterLink class="navbar-brand" to="/sent">Sent</RouterLink>
+                        <RouterLink class="navbar-brand" to="/sale">sale</RouterLink>
                     </li>
                 </ul>
             </div>

@@ -27,7 +27,11 @@
                             <td>{{ cliente.Last_name }}</td>
                             <td>{{ cliente.telephone }}</td>
                             <td>
-                                Update &nbsp;
+                                <RouterLink :to="{ path: '/Customers/' + cliente.id + '/edit' }"
+                                    class="btn btn-success">
+                                    Edit
+                                </RouterLink>
+                                &nbsp;
                                 <button class="btn btn-danger" @click="deleteCustomer(cliente.id)">
                                     Delete
 
