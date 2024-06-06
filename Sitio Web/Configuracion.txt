@@ -1,0 +1,10 @@
+comando
+npm install
+en las carptas
+    Clientes -> Tienda
+    Servidor
+
+
+Comando para inisiar(Ensender)
+    Tienda  -> npm run dev
+    Servidor-> node --watch app.js
